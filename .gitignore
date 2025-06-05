@@ -43,3 +43,14 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+# Local Flutter metadata
+.metadata
+
+# Temporary files
+*.tmp
+*.temp
+
+# Code coverage
+coverage/
