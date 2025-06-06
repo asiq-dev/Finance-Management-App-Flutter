@@ -84,13 +84,14 @@ class Home extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
+                    SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Total Balance new',
+                            'Total Balance',
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
@@ -101,6 +102,22 @@ class Home extends StatelessWidget {
                             Icons.more_horiz,
                             color: Colors.white,
                           )
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 7),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: Row(
+                        children: [
+                          Text(
+                            '\$ 333,33',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                              color: Colors.white
+                            ),
+                          ),
                         ],
                       ),
                     )
