@@ -120,6 +120,85 @@ class Home extends StatelessWidget {
                           ),
                         ],
                       ),
+                    ),
+                    SizedBox(height: 25),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 13,
+                                backgroundColor: Color.fromARGB(255, 85, 145, 141),
+                                child: Icon(
+                                  Icons.arrow_downward,
+                                  color: Colors.white,
+                                  size: 19,
+                                ),
+                              ),
+                              SizedBox(width: 7),
+                              Text(
+                                'Income', 
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 216, 216, 216)
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 13,
+                                backgroundColor: Color.fromARGB(255, 85, 145, 141),
+                                child: Icon(
+                                  Icons.arrow_upward,
+                                  color: Colors.white,
+                                  size: 19,
+                                ),
+                              ),
+                              SizedBox(width: 7),
+                              Text(
+                                'Expenses', 
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 216, 216, 216)
+                                ),
+                              ),
+                            ],
+                          ),                          
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 6),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '\$ 1400',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 17,
+                              color: Colors.white
+                            ),
+                          ),
+                          Text(
+                            '\$ 570',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 17,
+                              color: Colors.white
+                            ),
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),
