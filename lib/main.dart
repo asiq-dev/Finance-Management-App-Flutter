@@ -1,5 +1,6 @@
 import 'package:finance_app/screens/home.dart';
 import 'package:finance_app/screens/statistics.dart';
+import 'package:finance_app/widgets/bottomnavigationbar.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Statistics());
+      home: Bottom());
   }
 }
 

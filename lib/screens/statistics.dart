@@ -1,3 +1,4 @@
+import 'package:finance_app/data/top.dart';
 import 'package:finance_app/widgets/chart.dart';
 import 'package:flutter/material.dart';
 
@@ -108,8 +109,63 @@ class _StatisticsState extends State<Statistics> {
                   SizedBox(
                     width: double.infinity,
                     child: Chart(),
+                  ),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Top Spending',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold
+                          ),
+                        ),
+                        Icon(
+                          Icons.swap_vert,
+                          size: 25,
+                          color: Colors.grey,
+                        ),
+                      ],
+                    ),
                   )
                 ],
+              ),
+            ),
+            SliverList(delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return ListTile(
+                  leading: Image.asset(
+                    'images/${geterTop()[index].image!}',
+                    height: 40,
+                  ),
+                  title: Text(
+                    geterTop()[index].name!,
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  subtitle: Text(
+                    geterTop()[index].time!,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  trailing: Text(
+                    geterTop()[index].fee!,
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
+                  ),
+                );
+              },
+              childCount: geterTop().length,
               ),
             ),
           ],
