@@ -1,4 +1,7 @@
+import 'package:finance_app/data/model/add_date.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 
 class AddScreen extends StatefulWidget {
   const AddScreen({super.key});
@@ -8,6 +11,7 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
+  final box = Hive.box<AddDate>('data');
   DateTime date = DateTime.now();
   String? selectedItem;
   String? selectedItemI;
