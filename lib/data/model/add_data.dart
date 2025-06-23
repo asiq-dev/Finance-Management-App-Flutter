@@ -1,8 +1,8 @@
 import 'package:hive/hive.dart';
-part 'add_date.g.dart';
+part 'add_data.g.dart';
 
 @HiveType(typeId: 1)
-class AddDate extends HiveObject {
+class AddData extends HiveObject {
   @HiveField(0)
   String name;
   @HiveField(1)
@@ -13,7 +13,7 @@ class AddDate extends HiveObject {
   String type;
   @HiveField(4)
   DateTime datetime;
-  AddDate(
+  AddData(
     this.type,
     this.amount,
     this.datetime,

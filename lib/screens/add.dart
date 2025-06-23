@@ -1,4 +1,4 @@
-import 'package:finance_app/data/model/add_date.dart';
+import 'package:finance_app/data/model/add_data.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -11,7 +11,7 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
-  final box = Hive.box<AddDate>('data');
+  final box = Hive.box<AddData>('data');
   DateTime date = DateTime.now();
   String? selectedItem;
   String? selectedItemI;
@@ -92,7 +92,13 @@ class _AddScreenState extends State<AddScreen> {
 
   GestureDetector save() {
     return GestureDetector(
-          onTap: (){},
+          onTap: (){
+            var add = AddData(
+              selectedItemI!, amountC.text, date, explainC.text, selectedItem!
+            );
+            box.add(add);
+            Navigator.of(context).pop();
+          },
           child: Container(
             alignment: Alignment.center,
             decoration: BoxDecoration(

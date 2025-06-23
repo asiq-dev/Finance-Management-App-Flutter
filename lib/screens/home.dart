@@ -1,9 +1,28 @@
+import 'package:finance_app/data/model/add_data.dart';
 import 'package:flutter/material.dart';
 import 'package:finance_app/data/listdata.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+
+}
+
+class _HomeState extends State<Home> {
+  var history;
+  final box = Hive.box<AddData>('data');
+  final List<String> day = [
+    'Monday',
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    'Friday',
+    'Saturday',
+    'Sunday'
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,42 +59,47 @@ class Home extends StatelessWidget {
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
-                return ListTile(
-                  leading: ClipRRect(
-                    borderRadius: BorderRadiusGeometry.circular(5),
-                    child: Image.asset('images/${geter()[index].image!}',
-                    height: 40),
-                  ),
-                  title: Text(
-                    geter()[index].name!,
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  subtitle: Text(
-                    geter()[index].time!,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  trailing: Text(
-                    geter()[index].fee!,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: geter()[index].buy! ? Colors.red : Colors.green,
-                    ),
-                  ),
-                );
+                history = box.values.toList()[index];
+                return get(index, history);
               },
-              childCount: geter().length,
+              childCount: box.length,
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  ListTile get(int index, AddData history) {
+    return ListTile(
+                leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Image.asset('images/${history.name}.png',
+                  height: 40),
+                ),
+                title: Text(
+                  history.name,
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                subtitle: Text(
+                  '${day[history.datetime.weekday -1 ]} ${history.datetime.year} -${history.datetime.day}-${history.datetime.month}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                trailing: Text(
+                  history.amount,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: history.type == 'Expense' ? Colors.red : Colors.green,
+                  ),
+                ),
+              );
   }
 
   // head widget part function

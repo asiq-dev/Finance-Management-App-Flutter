@@ -1,4 +1,4 @@
-import 'package:finance_app/data/model/add_date.dart';
+import 'package:finance_app/data/model/add_data.dart';
 import 'package:finance_app/screens/home.dart';
 import 'package:finance_app/screens/statistics.dart';
 import 'package:finance_app/widgets/bottomnavigationbar.dart';
@@ -9,7 +9,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 void main() async{
   await Hive.initFlutter();
   Hive.registerAdapter(AddDateAdapter());
-  await Hive.openBox<AddDate>('data');
+  await Hive.openBox<AddData>('data');
 
   runApp(const MyApp());
 }
