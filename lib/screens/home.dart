@@ -1,7 +1,9 @@
 import 'package:finance_app/data/model/add_data.dart';
+import 'package:finance_app/data/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:finance_app/data/listdata.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -28,46 +30,60 @@ class _HomeState extends State<Home> {
     return Scaffold(
       // appBar: AppBar(title: Text("Home Screen")),
       body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(child: SizedBox(height: 340, child: _head())),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Transaction History',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
-                        color: Colors.black,
+        child: ValueListenableBuilder(
+          valueListenable: box.listenable(),
+          builder: (context, value, child) {
+            return CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(child: SizedBox(height: 340, child: _head())),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Transaction History',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    Text(
-                      'See all',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                        color: Colors.grey,
+                      Text(
+                        'See all',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                history = box.values.toList()[index];
-                return get(index, history);
-              },
-              childCount: box.length,
+              SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  history = box.values.toList()[index];
+                  return getList(history, index);
+                },
+                childCount: box.length,
+                ),
               ),
-            ),
-          ],
+            ],
+          );
+          },
         ),
       ),
+    );
+  }
+  Widget getList(AddData history, int index) {
+    return Dismissible(
+      key: UniqueKey(),
+      onDismissed: (direction) {
+        history.delete();
+      },
+      child: get(index, history),
     );
   }
 
@@ -211,7 +227,7 @@ class _HomeState extends State<Home> {
                   child: Row(
                     children: [
                       Text(
-                        '\$ 333,33',
+                        '\$ ${totals()}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 25,
@@ -282,7 +298,7 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '\$ 1400',
+                        '\$ ${income()}',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 17,
@@ -290,7 +306,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       Text(
-                        '\$ 570',
+                        '\$ ${expenses()}',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 17,
