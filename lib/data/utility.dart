@@ -44,3 +44,56 @@ int expenses() {
 }
 
 
+// daily total calculation
+List<AddData> today() {
+  List<AddData> a = [];
+  var histories = box.values.toList();
+  DateTime date = DateTime.now();
+  for (var i=0; i < histories.length; i++){
+    if (histories[i].datetime.day == date.day) {
+      a.add(histories[i]);
+    }
+  }
+  return a;
+}
+
+// weekly total calculation
+List<AddData> week() {
+  List<AddData> a = [];
+  var histories = box.values.toList();
+  DateTime date = DateTime.now();
+  for (var i=0; i < histories.length; i++){
+    if (date.day - 7 <= histories[i].datetime.day &&
+    histories[i].datetime.day <= date.day) {
+      a.add(histories[i]);
+    }
+  }
+  return a;
+}
+
+
+// monthly total calculation
+List<AddData> month() {
+  List<AddData> a = [];
+  var histories = box.values.toList();
+  DateTime date = DateTime.now();
+  for (var i=0; i < histories.length; i++){
+    if (histories[i].datetime.month == date.month) {
+      a.add(histories[i]);
+    }
+  }
+  return a;
+}
+
+// yearly total calculation
+List<AddData> year() {
+  List<AddData> a = [];
+  var histories = box.values.toList();
+  DateTime date = DateTime.now();
+  for (var i=0; i < histories.length; i++){
+    if (histories[i].datetime.year == date.year) {
+      a.add(histories[i]);
+    }
+  }
+  return a;
+}
