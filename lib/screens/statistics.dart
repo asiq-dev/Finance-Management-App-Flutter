@@ -58,6 +58,7 @@ class _StatisticsState extends State<Statistics> {
                           onTap: () {
                             setState(() {
                               indexColor = index;
+                              kj.value = index;
                             });
                           },
                           child: Container(
@@ -123,10 +124,7 @@ class _StatisticsState extends State<Statistics> {
                 ),
                 // this is for chart
                 SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: Chart(),
-                ),
+                Chart(indexx: indexColor),
                 SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -155,34 +153,35 @@ class _StatisticsState extends State<Statistics> {
           SliverList(delegate: SliverChildBuilderDelegate(
             (context, index) {
               return ListTile(
-                leading: Image.asset(
-                  'images/${geterTop()[index].image!}',
-                  height: 40,
+                leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Image.asset('images/${a[index].name}.png',
+                  height: 40),
                 ),
                 title: Text(
-                  geterTop()[index].name!,
+                  a[index].name,
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 subtitle: Text(
-                  geterTop()[index].time!,
+                  '${day[a[index].datetime.weekday -1 ]} ${a[index].datetime.year} -${a[index].datetime.day}-${a[index].datetime.month}',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 trailing: Text(
-                  geterTop()[index].fee!,
+                  a[index].amount,
                   style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: a[index].type == 'Expense' ? Colors.red : Colors.green,
                   ),
                 ),
               );
             },
-            childCount: geterTop().length,
+            childCount: a.length,
             ),
           ),
         ],

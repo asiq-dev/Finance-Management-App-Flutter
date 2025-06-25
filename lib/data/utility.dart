@@ -97,3 +97,39 @@ List<AddData> year() {
   }
   return a;
 }
+
+
+// total amount calculation
+int totalsChart(List<AddData> histories) {
+  List a = [0, 0];
+  for (var i = 0; i < histories.length; i++) {
+    a.add(histories[i].type == "Income"? int.parse(histories[i].amount) : 
+    int.parse(histories[i].amount) * -1);
+  }
+  total = a.reduce((value, element) => value+element);
+  return total;
+}
+
+// time wise calculation
+List<int> time(List<AddData> histories, bool hour) {
+  if (histories == null || histories.isEmpty) return [0]; // Return default value for empty input
+  List<int> total = [];
+  Set<int> processed = {};
+  List<AddData> a = [];
+
+  for (var i = 0; i < histories.length; i++) {
+    int key = hour ? histories[i].datetime.hour : histories[i].datetime.day;
+    if (!processed.contains(key)) {
+      processed.add(key);
+      a.clear();
+      for (var j = 0; j < histories.length; j++) {
+        int compareKey = hour ? histories[j].datetime.hour : histories[j].datetime.day;
+        if (compareKey == key) {
+          a.add(histories[j]);
+        }
+      }
+      total.add(totalsChart(a.isNotEmpty ? a : [histories[i]])); // Use a default if a is empty
+    }
+  }
+  return total.isEmpty ? [0] : total; // Return [0] if no valid totals
+}
